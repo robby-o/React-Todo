@@ -34,22 +34,21 @@ class App extends React.Component {
     });
   };
 
-  toggleCompleted = e => {
-    const matchedTodo = this.state.todos.find(todo => todo.id === +e.target.id);
+  toggleCompleted = id => {
+    let matchedTodo = this.state.todos.find(todo => todo.id === id);
     this.setState({
-      todos: [...this.state.todos, (matchedTodo.completed = true)]
+      todos: [
+        ...this.state.todos,
+        (matchedTodo.completed = !matchedTodo.completed)
+      ]
     });
   };
 
   clearCompleted = e => {
-    const filteredTodos = this.state.todos.filter(
-      todo => todo.completed === false
-    );
-
-    // console.log(filteredTodos, "filtered");
+    let todos = this.state.todos.filter(todo => !todo.completed);
 
     this.setState({
-      todos: filteredTodos
+      todos
     });
   };
 
