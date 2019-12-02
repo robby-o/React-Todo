@@ -35,13 +35,16 @@ class App extends React.Component {
   };
 
   toggleCompleted = id => {
-    let matchedTodo = this.state.todos.find(todo => todo.id === id);
-    this.setState({
-      todos: [
-        ...this.state.todos,
-        (matchedTodo.completed = !matchedTodo.completed)
-      ]
+    let todos = this.state.todos.slice();
+    todos = todos.map(todo => {
+      if (todo.id === id) {
+        todo.completed = !todo.completed;
+        return todo;
+      } else {
+        return todo;
+      }
     });
+    this.setState({ todos });
   };
 
   clearCompleted = e => {
