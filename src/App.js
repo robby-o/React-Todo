@@ -53,7 +53,9 @@ class App extends React.Component {
   };
 
   clearCompleted = e => {
+    e.preventDefault();
     let todos = this.state.todos.filter(todo => !todo.completed);
+    console.log(todos);
     this.setState({
       todos
     });
