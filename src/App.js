@@ -19,20 +19,25 @@ class App extends React.Component {
           id: 1528817084358,
           completed: false
         }
-      ]
+      ],
+      todo: ""
     };
   }
 
-  addTodo = newTodoText => {
+  addTodo = e => {
+    e.preventDefault();
     const newTodo = {
-      task: newTodoText,
+      task: this.state.todo,
       id: Date.now(),
       completed: false
     };
     this.setState({
-      todos: [...this.state.todos, newTodo]
+      todos: [...this.state.todos, newTodo],
+      todo: ""
     });
   };
+
+  handleChanges = e => this.setState({ [e.target.name]: e.target.value });
 
   toggleCompleted = id => {
     let todos = this.state.todos.slice();
@@ -49,7 +54,6 @@ class App extends React.Component {
 
   clearCompleted = e => {
     let todos = this.state.todos.filter(todo => !todo.completed);
-
     this.setState({
       todos
     });
@@ -63,7 +67,12 @@ class App extends React.Component {
           todos={this.state.todos}
           toggleCompleted={this.toggleCompleted}
         />
-        <TodoForm addTodo={this.addTodo} clearCompleted={this.clearCompleted} />
+        <TodoForm
+          value={this.state.todo}
+          addTodo={this.addTodo}
+          clearCompleted={this.clearCompleted}
+          handleChanges={this.handleChanges}
+        />
       </div>
     );
   }
